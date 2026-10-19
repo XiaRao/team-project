@@ -71,23 +71,23 @@ at the end of the term.
         - If the task is already ranked third, then the rank would not be decreased. 
 ### Notes and clarifications
 #### Selection and sorting
- - Selecting and sorting mean different things here. 
- - Selection is about selecting the top three items to be displayed.
- - Sorting is about the order of the items to be displayed.
- - The top three tasks are selected first and then sorted. 
- - When selecting or sorting by due date, the task with the closest due date is selected or sorted first. 
- - When selecting or sorting by difficulty, the hardest task is selected or sorted first. 
- - When selecting or sorting by hours per day, the task with the largest number of hours is selected or sorted first. 
- - Whenever there is a tie, sort by due date next. If there is still a tie, sort by task name. 
- - The rule of "Decrease the sorting ranking by one", if applied, is applied at the very end, after the above rules are applied. 
+- Selecting and sorting mean different things here. 
+- Selection is about selecting the top three items to be displayed.
+- Sorting is about the order of the items to be displayed.
+- The top three tasks are selected first and then sorted. 
+- When selecting or sorting by due date, the task with the closest due date is selected or sorted first. 
+- When selecting or sorting by difficulty, the hardest task is selected or sorted first. 
+- When selecting or sorting by hours per day, the task with the largest number of hours is selected or sorted first. 
+- Whenever there is a tie, sort by due date next. If there is still a tie, sort by task name. 
+- The rule of "Decrease the sorting ranking by one", if applied, is applied at the very end, after the above rules are applied. 
 #### For both display methods:
- - The overdue tasks would ***ALWAYS*** be displayed at the top, in addition to the selected tasks. 
- - If the task displayed is due on a public holiday, clearly display this information.
+- The overdue tasks would ***ALWAYS*** be displayed at the top, in addition to the selected tasks. 
+- If the task displayed is due on a public holiday, clearly display this information.
 #### MISC
- - We need the rough-ins for nice-to-have features. 
- - The nice-to-have features are highly likely to be implemented. But the MVP features are selected to ensure a high project success rate. 
- - We can add more enhancement features later on. 
- - Use the Markdown file on the project repository as the single source of truth.  Treat the Google Docs as old archived information.  
+- We need the rough-ins for nice-to-have features. 
+- The nice-to-have features are highly likely to be implemented. But the MVP features are selected to ensure a high project success rate. 
+- We can add more enhancement features later on. 
+- Use the Markdown file on the project repository as the single source of truth.  Treat the Google Docs as old archived information.  
 
 ## Grouping of non-nice-to-have epic components
 ### Acceptance Criteria 1 — Create Academic Tasks
@@ -114,20 +114,22 @@ at the end of the term.
 - Always display overdue tasks at the top.
 - Apply the task-name tie-breaker when deadlines are equal.
 - Integrate the Nager.Date Public Holiday API to detect deadlines falling on public holidays.
-- Clearly display public-holiday warnings beside affected tasks.
+- Externally, display suggested daily workload per task in hours per day, overdue warnings, and any applicable public-holiday warnings.
 - Keep updating and update the displayed information when the view is "opened" or "refreshed".
 - Expose holiday-warning functionality for reuse in User Story 4.
 
-### Acceptance Criteria 4 — Prioritize Today's Tasks and Calculate Daily Workload
+### Acceptance Criteria 4 — Prioritize Today's Tasks and Calculate Suggested Daily Workload
 - Select the top three incomplete, non-overdue tasks using hours per day.
 - Calculate remaining workload.
 - Calculate the days available to work, excluding today and the due date. 
-- Calculate hours per day
-- When a task is due today or tomorrow, assign it a ranking value of positive infinity.
-- Select the top three tasks first, then sort those selected tasks by hours per day, descending.
+- Calculate suggested daily workload per task in hours per day
+- When a task is due today or tomorrow: 
+   - Internally, assign it a suggested daily workload of positive infinity per day to be used for the ranking calculation.
+   - Externally, display the suggested daily workload by displaying the remaining workload.
+- Select the top three tasks first, then sort those selected tasks by suggested daily workload per task in hours per day, descending.
 - Break ties using the earlier deadline, followed by task name.
-- Display every overdue task above the three selected tasks, without counting overdue tasks toward the limit of three.
-- Show suggested daily workload and any applicable public-holiday warnings.
+- Select every overdue task above the three selected tasks, without counting overdue tasks toward the limit of three.
+- Internally, provide suggested daily workload per task in hours per day, overdue warnings, and any applicable public-holiday warnings.
 - Keep recalculating and recalculate prioritization from current task data whenever the view is "opened" or "refreshed".
 
 ## User Story 1 — Create Academic Tasks
@@ -145,3 +147,21 @@ As a student, I want to create academic tasks with deadlines and workload estima
 5. Each task is assigned a unique identifier and an initial completion progress of 0%.
 6. Tasks are saved locally using JSON or SQLite and remain available after the application is restarted.
 
+## User Story 4 - Prioritize Today's Tasks and Calculate Suggested Daily Workload
+
+As a student, I want to be able to have a suggested prioritization of today's tasks and also have a suggested daily workload, so that I can plan what to study based on the information.
+
+### Acceptance Criteria
+
+1. The system can select the top three incomplete, non-overdue tasks using hours per day.
+2. The system can calculate remaining workload per task.
+3. The system can calculate the days available to work, excluding today and the due date.
+4. The system can calculate suggested daily workload per task in hours per day
+5. When a task is due today or tomorrow:
+   - Internally, the system would assign it a suggested daily workload of positive infinity per day to be used for the ranking calculation.
+   - Externally, the system would display the suggested daily workload by displaying the remaining workload.
+6. The system can select the top three tasks first, then sort those selected tasks by hours per day, descending.
+7. The system would break ranking ties using the deadlines, i.e., whichever has the earlier deadline would be ranked higher, followed by task name.
+8. The system would always select every overdue task above the three selected tasks, without counting overdue tasks toward the limit of three.
+9. Internally, the system would provide suggested daily workload per task in hours per day, overdue warnings, and any applicable public-holiday warnings.
+10. The system would keep recalculating and recalculate prioritization from current task data whenever the view is "opened" or "refreshed".
