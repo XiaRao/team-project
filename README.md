@@ -115,7 +115,7 @@ at the end of the term.
 - Apply the task-name tie-breaker when deadlines are equal.
 - Integrate the Nager.Date Public Holiday API to detect deadlines falling on public holidays.
 - Clearly display public-holiday warnings beside affected tasks.
-- Update the displayed information when the view is "opened" or "refreshed".
+- Keep updating the displayed information when the view is "opened" or "refreshed".
 - Expose holiday-warning functionality for reuse in User Story 4.
 
 ### Acceptance Criteria 4 — Prioritize Today's Tasks and Calculate Daily Workload
@@ -128,7 +128,7 @@ at the end of the term.
 - Break ties using the earlier deadline, followed by task name.
 - Display every overdue task above the three selected tasks, without counting overdue tasks toward the limit of three.
 - Show suggested daily workload and any applicable public-holiday warnings.
-- Recalculate prioritization from current task data whenever the view is opened or refreshed.
+- Keep recalculating prioritization from current task data whenever the view is opened or refreshed.
 
 ## User Story 1 — Create Academic Tasks
 
