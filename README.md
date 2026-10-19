@@ -89,7 +89,7 @@ at the end of the term.
  - We can add more enhancement features later on. 
  - Use the Markdown file on the project repository as the single source of truth.  Treat the Google Docs as old archived information.  
 ## Grouping of non-nice-to-have epic components
-### User Story 1 — Create Academic Tasks
+### Acceptance Criteria 1 — Create Academic Tasks
 - Create tasks with a title, description, and deadline.
 - Specify an estimated number of hours, defaulting to 10 hours when unspecified.
 - Specify difficulty, defaulting to Average when unspecified.
@@ -97,7 +97,7 @@ at the end of the term.
 - Assign each task a unique identifier and an initial completion progress of 0%.
 - Persist task data locally using JSON or SQLite so that tasks survive application restarts.
 
-### User Story 2 — Manage Tasks and Completion Progress
+### Acceptance Criteria 2 — Manage Tasks and Completion Progress
 - Update a task's title and description.
 - Update its deadline, estimated hours, and difficulty.
 - Update its completion percentage from 0% to 100%.
@@ -107,7 +107,7 @@ at the end of the term.
 - Persist all modifications and deletions.
 - Ensure monitoring views reflect updated information when reopened or refreshed.
 
-### User Story 3 — View Upcoming Deadlines and Holiday Warnings
+### Acceptance Criteria 3 — View Upcoming Deadlines and Holiday Warnings
 - Display saved tasks in the default monitoring view.
 - Sort tasks by due date, with the closest deadline first.
 - Identify overdue tasks that remain incomplete.
@@ -118,7 +118,7 @@ at the end of the term.
 - Refresh the displayed information when the view is opened or refreshed.
 - Expose holiday-warning functionality for reuse in User Story 4.
 
-### User Story 4 — Prioritize Today's Tasks and Calculate Daily Workload
+### Acceptance Criteriay 4 — Prioritize Today's Tasks and Calculate Daily Workload
 - Select the top three incomplete, non-overdue tasks using hours per day.
 - Calculate remaining workload.
 - Calculate the days available to work, excluding today and the due date. 
@@ -130,4 +130,18 @@ at the end of the term.
 - Show suggested daily workload and any applicable public-holiday warnings.
 - Recalculate prioritization from current task data whenever the view is displayed or refreshed.
 
+## User Story 1 — Create Academic Tasks
+
+### User Story
+
+As a student, I want to create academic tasks with deadlines and workload estimates so that I can organize my coursework and plan my time effectively.
+
+### Acceptance Criteria
+
+1. The user can create a task by providing a title, description, and deadline.
+2. The user can specify the estimated number of hours required to complete the task, defaulting to 10 hours if unspecified.
+3. The user can specify the task's difficulty, defaulting to Average if unspecified.
+4. The system validates task information before saving and prevents invalid task entries.
+5. Each task is assigned a unique identifier and an initial completion progress of 0%.
+6. Tasks are saved locally using JSON or SQLite and remain available after the application is restarted.
 
