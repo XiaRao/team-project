@@ -105,7 +105,7 @@ at the end of the term.
 - Mark a task as completed.
 - Delete an existing task, preferably with a confirmation step.
 - Persist all modifications and deletions.
-- Ensure monitoring views reflect updated information when reopened or refreshed.
+- Ensure monitoring views reflect updated information when "reopened" or "refreshed".
 
 ### Acceptance Criteria 3 — View Upcoming Deadlines and Holiday Warnings
 - Display saved tasks in the default monitoring view.
