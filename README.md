@@ -15,11 +15,11 @@ at the end of the term.
 # Program Specification
 ## Epic
 ### Minimum Viable Product (MVP) Epic Overview
-- As a university student, I want to ==***create***==, ==***view***==, ==***update***==, and ==***monitor***== upcoming ==academic deadlines== and ==***record***== ==task completion== progress in one centralized desktop application so that I can stay organized, ==***identify***== upcoming assignments, and manage my academic responsibilities effectively. 
-    - Automatically ==***warn***== students when a deadline falls on a public holiday.
-        - Use ==***Nager.Date Public Holiday API***==. 
+- As a university student, I want to ***create***, ***view***, ***update***, and ***monitor*** upcoming ***academic deadlines*** and ***record*** ***task completion*** progress in one centralized desktop application so that I can stay organized, ***identify*** upcoming assignments, and manage my academic responsibilities effectively. 
+    - Automatically ***warn*** students when a deadline falls on a public holiday.
+        - Use ***Nager.Date Public Holiday API***. 
     - Each task would have the option to have an estimated number of hours for completing it. 
-    - ==***Sort***== by difficulty and sort by hours per day for the task. (Monitoring upcoming academic deadlines)
+    - ***Sort*** by difficulty and sort by hours per day for the task. (Monitoring upcoming academic deadlines)
         - Show the top three tasks that need to be worked on today, ranked with the most important task to be done first. 
         - Each task would also display a calculated suggested number of hours to work on the task for the day.
 - Clarifications (user story extensions):
@@ -59,7 +59,7 @@ at the end of the term.
 - Refresh the selection and sorting of the tasks according to the latest information. 
 - Default method to view tasks
     - Sort by due date.
-- Monitor the tasks 
+- Monitor the tasks (Monitor view)
     - Top three tasks selected and sorted by hours per day.
         - The total number of days to work on the assignment would be the days from today to the due date, not including today and not including the due date.
         - The hours per day would be the estimated total number of hours multiplied by the percentage ***REMAINING*** progress of the task, divided by the total number of days as defined above. 
@@ -88,6 +88,7 @@ at the end of the term.
  - The nice-to-have features are highly likely to be implemented. But the MVP features are selected to ensure a high project success rate. 
  - We can add more enhancement features later on. 
  - Use the Markdown file on the project repository as the single source of truth.  Treat the Google Docs as old archived information.  
+
 ## Grouping of non-nice-to-have epic components
 ### Acceptance Criteria 1 — Create Academic Tasks
 - Create tasks with a title, description, and deadline.
@@ -102,7 +103,6 @@ at the end of the term.
 - Update its deadline, estimated hours, and difficulty.
 - Update its completion percentage from 0% to 100%.
 - Mark a task as completed.
-- Update the task's course name, as explicitly listed in the non-nice-to-have update requirements.
 - Delete an existing task, preferably with a confirmation step.
 - Persist all modifications and deletions.
 - Ensure monitoring views reflect updated information when reopened or refreshed.
@@ -117,8 +117,9 @@ at the end of the term.
 - Clearly display public-holiday warnings beside affected tasks.
 - Refresh the displayed information when the view is opened or refreshed.
 - Expose holiday-warning functionality for reuse in User Story 4.
+- For each task in the monitoring view, the suggested daily workload would be displayed.
 
-### Acceptance Criteriay 4 — Prioritize Today's Tasks and Calculate Daily Workload
+### Acceptance Criteria 4 — Prioritize Today's Tasks and Calculate Daily Workload
 - Select the top three incomplete, non-overdue tasks using hours per day.
 - Calculate remaining workload.
 - Calculate the days available to work, excluding today and the due date. 
