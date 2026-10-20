@@ -167,6 +167,23 @@ As a student, I want to be able to edit existing tasks, update their completion 
 7. All successful updates and deletions are saved locally and remain reflected after the application is restarted. 
 8. When a monitoring view is reopened or refreshed, it uses the latest task information and excludes deleted tasks.
 
+## User Story 3 - View Upcoming Deadlines and Holiday Warnings
+
+### User Story
+
+As a student, I want to view my tasks in deadline order and receive warnings when tasks are overdue or due on a public holiday so that I can identify the deadlines and plan my work accordingly.
+
+### Acceptance Criteria
+1. The system can display all saved tasks in the default monitoring view.
+2. The system can sort tasks by due date, with the closest deadline first.
+3. The system can identify overdue tasks that remain incomplete.
+4. The system can always display overdue tasks at the top. 
+5. The system can apply the task-name tie-breaker when deadlines are equal.
+6. The system can integrate the Nager.Date Public Holiday API to detect deadlines falling on public holidays. 
+7. Externally, the system can display suggested daily workload per task in hours per day, overdue warnings, and any applicable public-holiday warnings. 
+8. The system can keep updating and update the displayed information when the view is "opened" or "refreshed". 
+9. The system can expose holiday-warning functionality for reuse in User Story 4.
+
 ## User Story 4 - Prioritize Today's Tasks and Calculate Suggested Daily Workload
 
 As a student, I want to be able to have a suggested prioritization of today's tasks and also have a suggested daily workload, so that I can plan what to study based on the information.
