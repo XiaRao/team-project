@@ -178,7 +178,7 @@ As a student, I want to view my tasks in deadline order and receive warnings whe
 2. The system can sort tasks by due date, with the closest deadline first.
 3. The system can identify overdue tasks that remain incomplete.
 4. The system can always display overdue tasks at the top. 
-5. The system can apply the task-name tie-breaker when deadlines are equal. 
+5. The system can apply the task-name tie-breaker when deadlines are equal.
 6. The system can integrate the Nager.Date Public Holiday API to detect deadlines falling on public holidays. 
 7. Externally, the system can display suggested daily workload per task in hours per day, overdue warnings, and any applicable public-holiday warnings. 
 8. The system can keep updating and update the displayed information when the view is "opened" or "refreshed". 
