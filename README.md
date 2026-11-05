@@ -235,7 +235,7 @@ As a student, I want to be able to have a suggested prioritization of today's ta
 #### Trigger
 - The user chooses to edit an existing task.
 #### Success outcome
-- The valid changes are saved locally under the samse task identifier, restores the correct information when the application restarts, and are reflected when the Monitoring View is the re-opened or refreshed.
+- The valid changes are saved locally under the same task identifier, restores the correct information when the application restarts, and are reflected when the Monitoring View is the re-opened or refreshed.
 #### Main success scenario
 - The user selects an existing task and asks to edit it.
 - The system displays its current title, description, deadline, estimated total hours, and difficulty. 
@@ -243,7 +243,7 @@ As a student, I want to be able to have a suggested prioritization of today's ta
 - The student asks to save the changes. 
 - The system validates the edited information. 
 - The system saves the updated task locally, preserving its identifier and completion percentage. 
-- The system displays the updated information and confirms that it was saved.
+- The system displays the updated information and display a confirmation message that it was saved.
 #### Extensions
 - The entered information is invalid.
   - The number entered for completion progress should be between 0-100, and the number of hours should be positive. If not, the system identifies the invalid fields and leaves the saved task unchanged.
@@ -287,13 +287,13 @@ As a student, I want to be able to have a suggested prioritization of today's ta
 - The Monitoring View window is activated.
 
 #### Trigger
-- The user opens or refreshes the Monitoring View window, or requests to view tasks in deadline order.
+- The user opens the Monitoring View window, or requests to view tasks in deadline order.
 
 #### Success outcome
 - The tasks are displayed in deadline order, with incomplete overdue tasks shown first and public holiday warnings displayed.
 
 #### Main success scenario
-1. The user opens or refreshes the Monitoring View window.
+1. The user opens the Monitoring View window or requests to view tasks in deadline order.
 2. The system retrieves all the tasks stored inside the system.
 3. The system identifies all incomplete tasks whose deadlines have passed as overdue and display them at the top separately.
 4. The system sorts the remaining tasks by deadline, with the closest deadline listed first.
