@@ -185,6 +185,55 @@ As a student, I want to be able to have a suggested prioritization of today's ta
 ### Story 1
 
 ### Story 2
+#### Name
+- Edit Task information and completion progress
+#### Primary actor
+- The user editing the tasks
+#### Preconditions
+- There is at least one task in the system.
+- The application is running.
+#### Trigger
+- The user chooses to edit an existing task.
+#### Success outcome
+- The valid changes are saved locally under the samse task identifier, restores the correct information when the application restarts, and are reflected when the Monitoring View is the re-opened or refreshed.
+#### Main success scenario
+- The user selects an existing task and asks to edit it.
+- The system displays its current title, description, deadline, estimated total hours, and difficulty. 
+- The student modifies one or more fields.
+- The student asks to save the changes. 
+- The system validates the edited information. 
+- The system saves the updated task locally, preserving its identifier and completion percentage. 
+- The system displays the updated information and confirms that it was saved.
+#### Extensions
+- The entered information is invalid.
+  - The number entered for completion progress should be between 0-100, and the number of hours should be positive. If not, the system identifies the invalid fields and leaves the saved task unchanged.
+  - The student returns to the editing page to correct the information or cancels editing.
+- The student canceled the editing.
+  -The system pops up a window to let the user confirm the cancellation.
+  - The system discard the unsaved changes.
+  - The saved task remains unchanged, and the use case ends.
+
+#### Name
+- Deletes the task
+#### Primary actor
+- The user asks to delete an existing task.
+#### Preconditions
+- There is at least one task in the system.
+- The application is running.
+#### Trigger
+- The user chooses to edit an existing task.
+#### Success outcome
+- The task is deleted from local storage, remains deleted after restarting the application, and is excluded from subsequent Monitoring View results.
+#### Main success scenario
+- The user selects an existing task and asks to delete it.
+- The system identifies the selected task and asks for confirmation
+- The student confirms the deletion.
+- The system deletes the task from local storage.
+- The system removes the task from the displayed task list, from the database, and confirms the deletion.
+#### Extensions
+- The student cancels the deletion
+  - The system closes the confirmation prompt.
+  - The task remains unchanged, and the use case ends.
 
 ### Story 3
 
