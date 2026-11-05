@@ -188,6 +188,33 @@ As a student, I want to be able to have a suggested prioritization of today's ta
 
 ### Story 3
 
+#### Name
+- View upcoming deadlines and public holiday warnings.
+
+#### Primary actor
+- The user viewing the tasks.
+
+#### Preconditions
+- The Monitoring View window is activated.
+
+#### Trigger
+- The user opens or refreshes the Monitoring View window, or requests to view tasks in deadline order.
+
+#### Success outcome
+- The tasks are displayed in deadline order, with incomplete overdue tasks shown first and public holiday warnings displayed.
+
+#### Main success scenario
+1. The user opens or refreshes the Monitoring View window.
+2. The system retrieves all the tasks stored inside the system.
+3. The system identifies all incomplete tasks whose deadlines have passed as overdue and display them at the top separately.
+4. The system sorts the remaining tasks by deadline, with the closest deadline listed first.
+5. The system retrieves public holiday information from the Nager.Date Public Holiday API and checks whether the deadline of each task falls on a public holiday.
+6. The system displays an overdue warning beside each overdue task and a public holiday warning beside each task whose deadline falls on a public holiday.
+7. The system makes the holiday-warning information available for reuse by Story 4.
+
+#### Extensions
+- NONE
+
 ### Story 4
 
 #### Name
