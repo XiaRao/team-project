@@ -357,7 +357,7 @@ As a student, I want to be able to have a suggested prioritization of today's ta
 #### Success outcome
 - The selected and sorted tasks are displayed in the Monitoring View according to the suggested daily workload.
 
-##### Main sucesss scenario
+#### Main sucesss scenario
 1. The user requests to prioritize the tasks in the Monitoring View using the suggested daily workload algorithm.
 2. The system retrieves all the tasks stored inside the system.
 3. The system finds all the tasks ***NOT*** overdue ***AND*** that have ***NOT*** been completed, as the overdue tasks would always be displayed at the top separately.
