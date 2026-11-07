@@ -222,6 +222,7 @@ As a student, I want to be able to have a suggested prioritization of today's ta
 
 #### Extensions
 - If the estimated number of hours is not a positive number, or the completion rate percentage is not a number between 0 and 100 percent, inclusive, the system displays an error message and requests a valid value.
+- If the task deadline is invalid or missing, the system displays an error message and prevents the task from being saved.
 - If the user cancels task creation, the system does not save the task.
   - The system pops up a window to let the user confirm the cancellation.
   - The system discards the unsaved task to be created, and the use case ends.
