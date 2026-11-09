@@ -391,19 +391,7 @@ As a student, I want to be able to have a suggested prioritization of today's ta
 ---
 
 ## Entities
-
-### Entity 1: Task
-- Unique ID
-- Task title 
-- Description
-- Deadlines
-- Estimated number of hours needed to complete the task
-- Completion progress
-- Difficulty level
-
-### Entity 2: Holiday
-- Country code in ISO 3166-1 alpha-2 code
-- List of dates that are national holidays in this country
+- See the file in Entities.puml 
 
 ---
 
