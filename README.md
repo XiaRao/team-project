@@ -1,18 +1,27 @@
-# Team Project
+# Project Name
+Group 03 - BA2200
 
-Please keep this up-to-date with information about your project throughout the term.
+## Team Information
 
-The README should include information such as:
-- a summary of what your application is all about
-- a list of the user stories, along with who is responsible for each one
-- information about the API(s) that your project uses
-- screenshots or animations demonstrating current functionality
+### Team Members
+- Eva Verkhovsky
+- Xia Rao
+- Lufei Zhang
+- Anjie Zhou
 
-By keeping this README up-to-date,
-your team will find it easier to prepare for the final presentation
-at the end of the term.
+---
 
-# Program Specification
+## Project Description
+
+### Domain
+
+***Student Task Planner*** - An App to Plan, Organize, and Prioritize Academic Tasks and Assignments:
+- This app helps students organize assignments and track academic deadlines. 
+- It helps students prioritize important tasks and plan their daily study workload. 
+- Students can also track their progress, manage their study time effectively, and stay on top of their coursework.
+
+---
+
 ## Epic
 ### Minimum Viable Product (MVP) Epic Overview
 - As a university student, I want to ***create***, ***view***, ***update***, and ***monitor*** upcoming ***academic deadlines*** and ***record*** ***task completion*** progress in one centralized desktop application so that I can stay organized, ***identify*** upcoming assignments, and manage my academic responsibilities effectively.
@@ -76,6 +85,8 @@ at the end of the term.
   - If there is a test for a course, and on the day of the test and the next day of the test, a task from the same course is selected in the Monitoring View, decrease the ranking.
   - If the task is already ranked third, then the rank would not be decreased.
 
+---
+
 ### Notes and clarifications
 #### Selection and sorting
 - Selecting and sorting mean different things here.
@@ -97,8 +108,6 @@ at the end of the term.
 - User stories 3 and 4 both use the same monitoring view.
 - The user can choose which method to sort the tasks in the view. 
 - The different methods are different modes to display the tasks, not parallel displays of the same tasks. 
-#### Nager.Date Calendar
-- The calendar assumes the user lives in Toronto, Ontario, Canada.
 #### Task input field requirements
 - The estimated number of hours required to complete the task must be a positive number.
 - There are exactly three levels of difficulty: "Easy", "Average", and "Difficult".
@@ -107,6 +116,8 @@ at the end of the term.
 - The nice-to-have features are highly likely to be implemented. But the MVP features are selected to ensure a high project success rate.
 - We can add more enhancement features later on.
 - Use the Markdown file in the project repository as the single source of truth.  Treat the Google Docs as old archived information.
+
+---
 
 ## User Story 1 — Create Academic Tasks (Led by Eva Verkhovsky)
 
@@ -123,6 +134,8 @@ As a student, I want to create academic tasks with deadlines and workload estima
 5. Each task is assigned a unique identifier and an initial completion progress of 0%.
 6. Tasks are saved locally using JSON or SQLite and remain available after the application is restarted.
 7. When a Monitoring View is opened/reopened, it is able to retrieve the latest task information, including newly created tasks.
+
+---
 
 ## User Story 2 - Manage Tasks and Completion Progress (Led by Xia Rao) 
 
@@ -141,6 +154,8 @@ As a student, I want to be able to edit existing tasks, update their completion 
 7. All successful updates and deletions are saved locally and remain reflected after the application is restarted.
 8. When a Monitoring View is opened/reopened, it is able to retrieve the latest task information and excludes deleted tasks.
 
+---
+
 ## User Story 3 - View Upcoming Deadlines and Holiday Warnings (Led by Lufei Zhang)
 
 ### User Story
@@ -158,6 +173,8 @@ As a student, I want to view my tasks in deadline order and receive warnings whe
 8. Whenever the Monitoring View is opened/reopened, it should use the latest state to select and sort the tasks, and display them. 
 9. Tasks that are 100% complete should never be included in the tasks listed in the Monitoring View.
 10. The system can expose holiday-warning functionality for reuse in User Story 4.
+
+---
 
 ## User Story 4 - Monitoring View and Prioritize Today's Tasks and Calculate Suggested Daily Workload (Led by Anjie Zhou)
 
@@ -181,6 +198,8 @@ As a student, I want to be able to have a suggested prioritization of today's ta
 10. Whenever the Monitoring View is opened/reopened, it should use the latest state to select and sort the tasks, and display them. 
 11. Tasks that are 100% complete should never be included in the tasks listed in the Monitoring View.
 12. Have an architecture design that can allow future developers to add new selection and sorting algorithms easily.
+
+---
 
 ## Use Cases
 
@@ -324,44 +343,68 @@ As a student, I want to be able to have a suggested prioritization of today's ta
 
 ### Story 4
 
-#### #### Sub Case A Name
+#### Sub Case A Name
 - Turn on Monitoring View
 
-#### Primary actor
+##### Primary actor
 - The user viewing the tasks.
 
-#### Preconditions
+##### Preconditions
 - The application is running. 
 
-#### Trigger
+##### Trigger
 - The user requests to activate the Monitoring View. 
 
-#### Success outcome
+##### Success outcome
 - The Monitoring View window is activated and allows the user to trigger the Story 3 use case, including requests for different ways to select and sort the tasks. 
 
-#### Main sucesss scenario
+##### Main success scenario
 1. The user requests to activate the Monitoring View.
-2. The Monitoring View window is displayed and supports the functionality of the Story 3 use case through an abstract interface. 
+2. The user is prompted to select the country code setting. It will impact the holiday warning.
+  - The country would default to Canada.
+  - The ISO 3166-1 alpha-2 country code would be used here.
+3. The Monitoring View window is displayed and supports the functionality of the Story 3 use case through an abstract interface. 
 
 #### Sub Case B Name
 - Prioritizing today's tasks using the suggested daily workload.
 
-#### Primary actor
+##### Primary actor
 - The user viewing the tasks.
 
-#### Preconditions
+##### Preconditions
 - The application is running, and the Monitoring View is open. 
 
-#### Trigger
+##### Trigger
 - The user requests to prioritize today's tasks using the suggested daily workload.
 
-#### Success outcome
+##### Success outcome
 - The selected and sorted tasks are displayed in the Monitoring View according to the suggested daily workload.
 
-#### Main sucesss scenario
+##### Main success scenario
 1. The user requests to prioritize the tasks in the Monitoring View using the suggested daily workload algorithm.
 2. The system retrieves all the tasks stored inside the system.
 3. The system finds all the tasks ***NOT*** overdue ***AND*** that have ***NOT*** been completed, as the overdue tasks would always be displayed at the top separately.
 4. The system sorts the tasks using the suggested daily workload, with the task requiring the greatest workload listed first.
 5. The system selects the top three tasks (or up to three tasks, if there are fewer than three tasks), and they are already sorted in the right order to be displayed.
 6. These selected and sorted tasks are displayed in the Monitoring View according to the sorted order.
+
+---
+
+## Entities
+- See the file in Entities.puml 
+
+---
+
+## API Usage
+
+**API Name:** 
+Nager.Holidays
+
+**Documentation:** 
+- A high-level overview and quick-start guide [https://nagerholidays.com/api]
+- Detailed technical documentation [https://nagerholidays.com/scalar/#community-api-v4/description/introduction]
+
+**How it is used in the program:**
+- The program uses the Nager.Date Public Holiday API to retrieve public holiday information for Ontario, Canada. 
+- It checks whether academic task deadlines fall on public holidays and displays holiday warnings beside affected tasks in the Monitoring View. 
+- The API results are cached to avoid repeated requests.
