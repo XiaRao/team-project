@@ -30,6 +30,12 @@ abstract class Holiday {
   - dates : Set<Dates>
 }
 
+abstract class User {
+  - username : String
+  - password : String
+  - countryCode : String
+}
+
 DifficultyLevelMapping <--- Task
 Task <-- TaskCollection
 
