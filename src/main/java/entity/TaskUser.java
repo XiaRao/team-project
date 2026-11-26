@@ -55,13 +55,13 @@ public abstract class TaskUser<T extends Task> extends User {
 
         if (task.getUniqueUserId() != super.getUniqueUserId()) {
             throw new IllegalArgumentException(
-                    "Task must belong to the current user.");
+                "Task must belong to the current user.");
         }
 
         for (T existingTask : tasks) {
             if (existingTask.getUniqueTaskId() == task.getUniqueTaskId()) {
                 throw new IllegalArgumentException(
-                        "A task with the same uniqueTaskId already exists.");
+                    "A task with the same uniqueTaskId already exists.");
             }
         }
     }
