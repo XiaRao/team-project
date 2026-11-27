@@ -2,24 +2,81 @@ package entity;
 
 import java.time.LocalDate;
 
-/** Represents a student's task. */
+/**
+ * Represents a student's task.
+ *
+ * <p>Instances are created through {@link StudentTaskFactory}. The task ID and
+ * owner ID are inherited from {@link Task} and cannot be changed after creation.
+ *
+ * <p>{@link #fieldsValidation()} defensively checks the current object state
+ * against this class's invariants, including checks for invalid or corrupted
+ * data. {@link #inputValidation(String, LocalDate, double, byte)} checks only
+ * the supplied title, deadline, estimated hours, and completion progress.
+ *
+ * <p>Setters reject changes if the current object state is already invalid.
+ * After assigning a new value, they validate the resulting state and restore
+ * the previous field value if validation fails.
+ */
 public class StudentTask extends Task {
+    /** Default estimated total workload, in hours. */
     public static final double DEFAULT_ESTIMATED_HOURS = 10.0;
+
+    /** Default difficulty when no difficulty is specified. */
     public static final DifficultyLevel DEFAULT_DIFFICULTY_LEVEL = DifficultyLevel.AVERAGE;
 
+    /** Task title; cannot be null or empty. */
     private String title;
+
+    /** Task description; may be empty but cannot be null. */
     private String description;
+
+    /** Due date; past dates are permitted, but null is not. */
     private LocalDate deadline;
+
+    /** Estimated total hours needed to complete the task; finite and positive. */
     private double estimatedHoursToCompleteTask;
+
+    /** Integer completion percentage, from 0 through 100 inclusive. */
     private byte completionProgress;
+
+    /** Task difficulty; cannot be null. */
     private DifficultyLevel difficultyLevel;
 
+    /**
+     * Constructs a task with 10 estimated hours, 0% completion, and Average
+     * difficulty.
+     *
+     * <p>Package access allows the entity factory to control task creation.
+     *
+     * @param uniqueTaskId the task identifier within the owning user's task list
+     * @param uniqueUserId the nonzero identifier of the owning user
+     * @param title the task title; cannot be null or empty
+     * @param description the task description; may be empty but cannot be null
+     * @param deadline the nonnull due date; past dates are permitted
+     * @throws IllegalArgumentException if the supplied fields fail validation
+     */
     StudentTask(int uniqueTaskId, int uniqueUserId, String title,
                 String description, LocalDate deadline) {
         this(uniqueTaskId, uniqueUserId, title, description, deadline,
             DEFAULT_ESTIMATED_HOURS, (byte) 0, DEFAULT_DIFFICULTY_LEVEL);
     }
 
+    /**
+     * Constructs a task with explicitly supplied field values.
+     *
+     * <p>The resulting object is checked using {@link #fieldsValidation()}
+     * before construction completes.
+     *
+     * @param uniqueTaskId the task identifier within the owning user's task list
+     * @param uniqueUserId the nonzero identifier of the owning user
+     * @param title the task title; cannot be null or empty
+     * @param description the task description; may be empty but cannot be null
+     * @param deadline the nonnull due date; past dates are permitted
+     * @param estimatedHoursToCompleteTask the finite, positive estimated total hours
+     * @param completionProgress the completion percentage, from 0 through 100
+     * @param difficultyLevel the nonnull difficulty
+     * @throws IllegalArgumentException if the supplied fields fail validation
+     */
     StudentTask(int uniqueTaskId, int uniqueUserId, String title,
                 String description, LocalDate deadline,
                 double estimatedHoursToCompleteTask, byte completionProgress,
@@ -37,35 +94,93 @@ public class StudentTask extends Task {
         }
     }
 
+    /**
+     * Checks the current object state against this class's invariants.
+     *
+     * <p>The owner ID must be nonzero. The description and difficulty must be
+     * nonnull. The title, deadline, estimated hours, and completion progress
+     * must satisfy {@link #inputValidation(String, LocalDate, double, byte)}.
+     * Empty descriptions are permitted.
+     *
+     * <p>This defensive check helps detect invalid or corrupted state. It is
+     * also used during construction and after edits to reject invalid values.
+     * It does not modify or repair the object, and it does not itself throw
+     * a validation exception.
+     *
+     * @return true if all checked fields are valid; otherwise false
+     */
     public boolean fieldsValidation() {
         return getUniqueUserId() != 0
-            && title != null
             && description != null
             && difficultyLevel != null
-            && inputValidation(deadline, estimatedHoursToCompleteTask, completionProgress);
+            && inputValidation(title, deadline, estimatedHoursToCompleteTask, completionProgress);
     }
 
-    public boolean inputValidation(LocalDate deadline, double estimatedHours, byte progress) {
-        return deadline != null
+    /**
+     * Checks proposed title, deadline, estimated hours, and completion progress
+     * values without creating or modifying a task.
+     *
+     * <p>Downstream code may use this static method to validate parsed user
+     * input before creating a task or applying changes. Only the supplied
+     * arguments are checked; the task's owner ID, description, and difficulty
+     * are not checked by this method.
+     *
+     * @param title the proposed title; cannot be null or empty
+     * @param deadline the proposed due date; must be nonnull but may be in the past
+     * @param estimatedHours the proposed estimated total hours; must be finite
+     *                       and greater than zero
+     * @param progress the proposed integer completion percentage, from 0 through 100
+     * @return true if all four supplied values are valid; otherwise false
+     */
+    public static boolean inputValidation(String title, LocalDate deadline,
+                                          double estimatedHours, byte progress) {
+        return title != null
+            && !title.isEmpty()
+            && deadline != null
             && Double.isFinite(estimatedHours)
             && estimatedHours > 0
             && progress >= 0
             && progress <= 100;
     }
 
+    /**
+     * Updates the task title.
+     *
+     * <p>The proposed title is validated before assignment. The resulting
+     * object state is checked afterward, with the previous title restored
+     * if that check fails.
+     *
+     * @param newTitle the new nonnull, non-empty title
+     * @throws IllegalStateException if the task is invalid before the update
+     * @throws IllegalArgumentException if the new title is null or empty
+     */
     public void setTitle(String newTitle) {
         if (!fieldsValidation()) {
             throw new IllegalStateException("The task has invalid fields.");
         }
+        if (!inputValidation(newTitle, deadline, estimatedHoursToCompleteTask, completionProgress)) {
+            throw new IllegalArgumentException("The new title cannot be null or empty.");
+        }
+
         String previousTitle = this.title;
         this.title = newTitle;
 
         if (!fieldsValidation()) {
             this.title = previousTitle;
-            throw new IllegalArgumentException("The new title cannot be null.");
+            throw new IllegalArgumentException("The new title cannot be null or empty.");
         }
     }
 
+    /**
+     * Updates the task description.
+     *
+     * <p>An empty description is permitted. A rejected update restores the
+     * previous description.
+     *
+     * @param newDescription the new nonnull description
+     * @throws IllegalStateException if the task is invalid before the update
+     * @throws IllegalArgumentException if the new description is null
+     */
     public void setDescription(String newDescription) {
         if (!fieldsValidation()) {
             throw new IllegalStateException("The task has invalid fields.");
@@ -79,12 +194,23 @@ public class StudentTask extends Task {
         }
     }
 
-    /** Past deadlines are allowed, but null deadlines are not. */
+    /**
+     * Past deadlines are allowed, but null deadlines are not.
+     *
+     * <p>The proposed deadline is validated before assignment. The resulting
+     * object state is checked afterward, with the previous deadline restored
+     * if that check fails.
+     *
+     * @param newDeadline the new nonnull due date
+     * @throws IllegalStateException if the task is invalid before the update
+     * @throws IllegalArgumentException if the proposed deadline or resulting
+     *                                  object state fails validation
+     */
     public void setDeadline(LocalDate newDeadline) {
         if (!fieldsValidation()) {
             throw new IllegalStateException("The task has invalid fields.");
         }
-        if (!inputValidation(newDeadline, estimatedHoursToCompleteTask, completionProgress)) {
+        if (!inputValidation(title, newDeadline, estimatedHoursToCompleteTask, completionProgress)) {
             throw new IllegalArgumentException("The new deadline is not valid.");
         }
 
@@ -97,11 +223,23 @@ public class StudentTask extends Task {
         }
     }
 
+    /**
+     * Updates the estimated total hours needed to complete the task.
+     *
+     * <p>The proposed value is validated before assignment. The resulting
+     * object state is checked afterward, with the previous estimate restored
+     * if that check fails.
+     *
+     * @param newEstimatedHours the new finite estimate, greater than zero
+     * @throws IllegalStateException if the task is invalid before the update
+     * @throws IllegalArgumentException if the proposed estimate or resulting
+     *                                  object state fails validation
+     */
     public void setEstimatedHoursToCompleteTask(double newEstimatedHours) {
         if (!fieldsValidation()) {
             throw new IllegalStateException("The task has invalid fields.");
         }
-        if (!inputValidation(deadline, newEstimatedHours, completionProgress)) {
+        if (!inputValidation(title, deadline, newEstimatedHours, completionProgress)) {
             throw new IllegalArgumentException("Estimated hours must be finite and greater than 0.");
         }
 
@@ -114,11 +252,24 @@ public class StudentTask extends Task {
         }
     }
 
+    /**
+     * Updates the integer completion percentage.
+     *
+     * <p>Both 0 and 100 are permitted; 100 represents a completed task.
+     * The proposed value is validated before assignment. The resulting object
+     * state is checked afterward, with the previous progress restored if that
+     * check fails.
+     *
+     * @param newCompletionProgress the new completion percentage, from 0 through 100
+     * @throws IllegalStateException if the task is invalid before the update
+     * @throws IllegalArgumentException if the proposed progress or resulting
+     *                                  object state fails validation
+     */
     public void setCompletionProgress(byte newCompletionProgress) {
         if (!fieldsValidation()) {
             throw new IllegalStateException("The task has invalid fields.");
         }
-        if (!inputValidation(deadline, estimatedHoursToCompleteTask, newCompletionProgress)) {
+        if (!inputValidation(title, deadline, estimatedHoursToCompleteTask, newCompletionProgress)) {
             throw new IllegalArgumentException("Completion progress must be between 0 and 100.");
         }
 
@@ -131,6 +282,15 @@ public class StudentTask extends Task {
         }
     }
 
+    /**
+     * Updates the task difficulty.
+     *
+     * <p>A rejected update restores the previous difficulty.
+     *
+     * @param newDifficultyLevel the new nonnull difficulty
+     * @throws IllegalStateException if the task is invalid before the update
+     * @throws IllegalArgumentException if the new difficulty is null
+     */
     public void setDifficultyLevel(DifficultyLevel newDifficultyLevel) {
         if (!fieldsValidation()) {
             throw new IllegalStateException("The task has invalid fields.");
@@ -144,26 +304,56 @@ public class StudentTask extends Task {
         }
     }
 
+    /**
+     * Returns the task title.
+     *
+     * @return the current title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Returns the task description.
+     *
+     * @return the current description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Returns the task deadline.
+     *
+     * @return the current due date
+     */
     public LocalDate getDeadline() {
         return deadline;
     }
 
+    /**
+     * Returns the estimated total workload.
+     *
+     * @return the current estimated total hours needed to complete the task
+     */
     public double getEstimatedHoursToCompleteTask() {
         return estimatedHoursToCompleteTask;
     }
 
+    /**
+     * Returns the task's completion percentage.
+     *
+     * @return the current integer completion percentage
+     */
     public byte getCompletionProgress() {
         return completionProgress;
     }
 
+    /**
+     * Returns the task difficulty.
+     *
+     * @return the current difficulty
+     */
     public DifficultyLevel getDifficultyLevel() {
         return difficultyLevel;
     }
