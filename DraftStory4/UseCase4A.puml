@@ -15,7 +15,7 @@ participant "MonitoringViewModel" as monitoringViewModel
 participant "ViewModelManager" as viewModelManager
 boundary "MonitoringView<MonitoringState>" as monitoringView
 
-humanStudentUser -> baseView: Turn on the Monitoring Window
+humanStudentUser -> baseView: Turn on the Monitoring window
 baseView -> turnOnMonitoringController: execute()
 turnOnMonitoringController -> turnOnMonitoringInputBoundary: execute(MonitoringInputData)
 turnOnMonitoringInputBoundary -> turnOnMonitoringInteractor: execute(MonitoringInputData)
