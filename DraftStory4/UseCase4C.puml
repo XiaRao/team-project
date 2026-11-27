@@ -45,5 +45,15 @@ logOffPresenter <-- baseViewModel
 logOffPresenter -> viewModelManager: changeView("Welcome")
 
 == "Cancel Log Off Request" ==
+humanStudentUser -> baseView: Cancel the log-off on the pop-up
+baseView -> logOffController: execute(RawCancelLogOffInputData)
+logOffController -> logOffInputBoundary: execute(CancelLogOffInputData)
+logOffInputBoundary -> logOffInteractor: execute(CancelLogOffInputData)
+logOffInteractor -> logOffOutputBoundary: logOff(CancelLogOffOutputData)
+logOffOutputBoundary -> logOffPresenter: logOff(CancelLogOffOutputData)
+logOffPresenter -> baseViewModel: setState(CancelLogOffState)
+logOffPresenter <-- baseViewModel
+logOffPresenter -> baseViewModel: firePropertyChange()
+baseViewModel -> baseView: propertyChange()
 
 @enduml
