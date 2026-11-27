@@ -24,6 +24,23 @@ public class StudentTaskFactory extends TaskFactory {
     }
 
     /**
+     * Creates a task with 10 estimated hours, 0% completion,
+     * and Average difficulty.
+     */
+    public StudentTask createStudentTask(
+        String title,
+        String description,
+        LocalDate deadline) {
+
+        return new StudentTask(
+            generateNextTaskUniqueId(),
+            uniqueUserId,
+            title,
+            description,
+            deadline);
+    }
+
+    /**
      * Restores a saved task using its original ID and this factory's owner ID.
      * Does not advance the next task ID counter.
      */
