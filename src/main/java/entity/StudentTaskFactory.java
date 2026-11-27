@@ -22,4 +22,40 @@ public class StudentTaskFactory extends TaskFactory {
                 deadline, estimatedHoursToCompleteTask,
                 completionProgress, difficultyLevel);
     }
+
+    /**
+     * Restores a saved task using its original ID and this factory's owner ID.
+     * Does not advance the next task ID counter.
+     */
+    public StudentTask restoreStudentTask(
+        int uniqueTaskId,
+        String title,
+        String description,
+        LocalDate deadline,
+        double estimatedHoursToCompleteTask,
+        byte completionProgress,
+        DifficultyLevel difficultyLevel) {
+
+        if (uniqueTaskId <= 0) {
+            throw new IllegalArgumentException(
+                "The restored task unique ID must be positive.");
+        }
+
+        if (uniqueTaskId >= getNextTaskUniqueId()) {
+            throw new IllegalArgumentException(
+                "The restored task unique ID must be less than "
+                    + "the next task unique ID.");
+        }
+
+        return new StudentTask(
+            uniqueTaskId,
+            uniqueUserId,
+            title,
+            description,
+            deadline,
+            estimatedHoursToCompleteTask,
+            completionProgress,
+            difficultyLevel);
+    }
+
 }

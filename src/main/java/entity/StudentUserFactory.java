@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.List;
+
 /** Creates student users with sequential unique user IDs. */
 public class StudentUserFactory extends UserFactory {
 
@@ -33,4 +35,45 @@ public class StudentUserFactory extends UserFactory {
 
         return user;
     }
+
+    /**
+     * Restores an existing user without advancing the global user ID counter.
+     * This factory must be initialized with the saved nextUniqueId.
+     * The supplied tasks must already be reconstructed from storage.
+     */
+    public StudentTaskUser restoreStudentUser(
+        int uniqueUserId,
+        String username,
+        String password,
+        Country countryCode,
+        List<StudentTask> tasks,
+        int nextTaskUniqueId) {
+
+        if (uniqueUserId <= 0) {
+            throw new IllegalArgumentException(
+                "The restored user unique ID must be positive.");
+        }
+
+        if (uniqueUserId >= getNextUniqueId()) {
+            throw new IllegalArgumentException(
+                "The restored user unique ID must be less than "
+                    + "the next user unique ID.");
+        }
+
+        if (countryCode == null) {
+            throw new IllegalArgumentException(
+                "Country code cannot be null.");
+        }
+
+        StudentTaskUser user = new StudentTaskUser(
+            username,
+            password,
+            uniqueUserId,
+            tasks,
+            nextTaskUniqueId);
+
+        user.setCountryCode(countryCode);
+        return user;
+    }
+
 }
