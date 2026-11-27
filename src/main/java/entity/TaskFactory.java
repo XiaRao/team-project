@@ -22,4 +22,13 @@ public abstract class TaskFactory {
     public int getNextTaskUniqueId() {
         return nextTaskUniqueId;
     }
+
+    void advancePast(int usedTaskId) {
+        if (usedTaskId == Integer.MAX_VALUE) {
+            throw new IllegalStateException(
+                "No task ID is available after this ID.");
+        }
+
+        nextTaskUniqueId = Math.max(nextTaskUniqueId, usedTaskId + 1);
+    }
 }

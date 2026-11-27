@@ -37,6 +37,17 @@ public class StudentTaskUser extends TaskUser<StudentTask> {
                 new StudentTaskFactory(nextTaskUniqueId, getUniqueUserId());
     }
 
+    @Override
+    public void addTask(StudentTask task) {
+        if (task != null && task.getUniqueTaskId() == Integer.MAX_VALUE) {
+            throw new IllegalStateException(
+                "No task ID is available after this ID.");
+        }
+
+        super.addTask(task);
+        studentTaskFactory.advancePast(task.getUniqueTaskId());
+    }
+
     public Country getCountryCode() {
         return countryCode;
     }
