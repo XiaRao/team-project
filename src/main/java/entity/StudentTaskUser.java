@@ -9,14 +9,14 @@ public class StudentTaskUser extends TaskUser<StudentTask> {
 
     public final StudentTaskFactory studentTaskFactory;
 
-    public StudentTaskUser(String username, String password, int uniqueUserId) {
+    StudentTaskUser(String username, String password, int uniqueUserId) {
         super(username, password, uniqueUserId);
 
         this.studentTaskFactory =
             new StudentTaskFactory(1, getUniqueUserId());
     }
 
-    public StudentTaskUser(String username, String password, int uniqueUserId,
+    StudentTaskUser(String username, String password, int uniqueUserId,
                            List<StudentTask> tasks, int nextTaskUniqueId) {
         super(username, password, uniqueUserId, tasks);
 

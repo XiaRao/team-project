@@ -7,12 +7,12 @@ import java.util.List;
 public abstract class TaskUser<T extends Task> extends User {
     private final List<T> tasks;
 
-    public TaskUser(String username, String password, int uniqueUserId) {
+    TaskUser(String username, String password, int uniqueUserId) {
         super(username, password, uniqueUserId);
         this.tasks = new ArrayList<>();
     }
 
-    public TaskUser(String username, String password, int uniqueUserId,
+    TaskUser(String username, String password, int uniqueUserId,
                     List<T> tasks) {
         this(username, password, uniqueUserId);
 
