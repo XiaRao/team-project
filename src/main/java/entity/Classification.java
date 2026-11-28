@@ -8,9 +8,9 @@ import java.util.Map;
 public abstract class Classification<T extends Task, S extends Enum<S>>{
   private Map<S, List<T>> groupedTasks;
 
-  public Classification(Class<S> groups) {
+  public Classification(Class<S> status) {
     this.groupedTasks = new HashMap<>();
-    for (S group : groups.getEnumConstants()) {
+    for (S group : status.getEnumConstants()) {
       groupedTasks.put(group, new ArrayList<>());
     }
   }

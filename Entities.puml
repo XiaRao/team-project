@@ -142,11 +142,11 @@ abstract class Classification<T extends Task, S extends ENUM<S>> {
 }
 
 class StudentTaskCompletionClassification {
-  + StudentTaskCompletionClassification(Tasks : <StudentTask>, TaskCompletion)
+  + StudentTaskCompletionClassification(tasks : List<StudentTask>)
 }
 
 class StudentTaskOverdueClassification {
-  + StudentTaskOverdueClassification(Tasks : <StudentTask>, TaskDue)
+  + StudentTaskOverdueClassification(tasks : List<StudentTask>)
 }
 
 Task <|-- StudentTask
