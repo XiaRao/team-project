@@ -64,7 +64,8 @@ abstract class Task {
 ' - The completion progress must be an integer between 0 and 100. Both 0 and 100 are allowed.
 ' - The `deadline` field cannot be empty, and it can be a date that has already passed.
 ' - The `uniqueUserId` field cannot be 0 (the default initializing value)
-' - Neither the title nor the description can be null, although they can be empty strings.
+' - The title cannot be null or an empty string.
+' - The description cannot be null, although it can be an empty string.
 ' - The difficulty level cannot be `null`.
 ' The constructor of `StudentTask` should use the method `fieldsValidation()` to double-check the validity of the
 '     object created, and throw an error if the item is not valid.
@@ -74,6 +75,7 @@ abstract class Task {
 '     This method would be used in the setter methods of the following fields, before the changes, to prevent illegal
 '     inputs from modifying these fields of the `StudentTask` object. In addition, this method can be used in the use
 '     cases to prevent users from entering bad data, corrupting the `StudentTask`.
+' - The `title` (cannot be null or an empty string)
 ' - The `deadline`
 ' - The `estimated number of hours`
 ' - The `completion progress`
@@ -85,7 +87,7 @@ class StudentTask {
   - completionProgress : byte
   - difficultyLevel : DifficultyLevel
   + fieldsValidation() : boolean
-  + inputValidation(deadline : LocalDate, estimatedHours : double, progress : byte) : boolean
+  + {static} inputValidation(title: String, deadline : LocalDate, estimatedHours : double, progress : byte) : boolean
 }
 
 abstract class User {
