@@ -7,7 +7,7 @@ public abstract class User {
     private final int uniqueUserId;
 
     // Constructor
-    public User(String username, String password, int uniqueUserId) {
+    User(String username, String password, int uniqueUserId) {
         this.username = username;
         this.password = password;
         this.uniqueUserId = uniqueUserId;
