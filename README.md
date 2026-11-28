@@ -109,6 +109,7 @@ Group 03 - BA2200
 - The user can choose which method to sort the tasks in the view. 
 - The different methods are different modes to display the tasks, not parallel displays of the same tasks. 
 #### Task input field requirements
+- The task title must be a non-empty string when creating or editing a task. Empty titles must be rejected before saving.
 - The estimated number of hours required to complete the task must be a positive number.
 - There are exactly three levels of difficulty: "Easy", "Average", and "Difficult".
 #### MISC
