@@ -11,7 +11,8 @@ control "LogOffInteractor" as logOffInteractor
 participant "LogOffOutputBoundary <<Interface>>" as logOffOutputBoundary
 control "LogOffPresenter" as logOffPresenter
 participant "BaseViewModel" as baseViewModel
-participant "MonitoringViewModel" as monitoringViewModel
+participant "IStateResetter <<Interface>>" as iStateResetter
+control "StateResetter" as stateResetter
 participant "ViewModelManager" as viewModelManager
 
 == "Send Log Off Request" ==
@@ -38,10 +39,9 @@ logOffPresenter <-- baseViewModel
 logOffPresenter -> baseViewModel: firePropertyChange()
 baseViewModel -> baseView: propertyChange()
 baseView --> logOffPresenter
-logOffPresenter -> monitoringViewModel: clearState()
-logOffPresenter <-- monitoringViewModel
-logOffPresenter -> baseViewModel: clearState()
-logOffPresenter <-- baseViewModel
+logOffPresenter -> iStateResetter: clearAllState()
+iStateResetter -> stateResetter: clearAllState()
+logOffPresenter <-- stateResetter
 logOffPresenter -> viewModelManager: changeView("Welcome")
 
 == "Cancel Log Off Request" ==
