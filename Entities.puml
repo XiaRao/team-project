@@ -27,6 +27,7 @@ enum DifficultyLevel {
 enum SortingStrategy {
   BY_DUE_DATE
   BY_SUGGESTED_HOURS_TO_WORK_PER_DAY
+  BY_DIFFICULTY_LEVEL
   --
   -displayName: String
   --
@@ -49,6 +50,16 @@ enum Country {
   --
   +getDisplayName(): String
   +toString(): String
+}
+
+enum TaskDue {
+  OVERDUE
+  NON_OVERDUE
+}
+
+enum TaskCompletion {
+  INCOMPLETE
+  COMPLETED
 }
 
 ' The `uniqueTaskId` is only unique per user
@@ -112,6 +123,9 @@ class StudentTaskUser {
 class SortingByDueDateStrategy {
 }
 
+class SortingByDifficultyLevel {
+}
+
 class SortingBySuggestedHoursToWorkPerDayStrategy {
   - today : LocalDate
 }
@@ -123,6 +137,18 @@ class Holidays {
 
 interface Comparator<StudentTask>
 
+abstract class Classification<T extends Task, S extends ENUM<S>> {
+  - groupedTasks : Map<S, List<T>>
+}
+
+class StudentTaskCompletionClassification {
+  + StudentTaskCompletionClassification(Tasks : <StudentTask>, TaskCompletion)
+}
+
+class StudentTaskOverdueClassification {
+  + StudentTaskOverdueClassification(Tasks : <StudentTask>, TaskDue)
+}
+
 Task <|-- StudentTask
 
 User <|-- TaskUser
@@ -132,8 +158,18 @@ Task <--o TaskUser
 
 DifficultyLevel <--o StudentTask
 
+Country <--o Holidays
+Country <--o StudentTaskUser
+
 Comparator <|.. SortingByDueDateStrategy
 Comparator <|.. SortingBySuggestedHoursToWorkPerDayStrategy
+Comparator <|.. SortingByDifficultyLevel
+
+Classification <|-- StudentTaskOverdueClassification
+Classification <|-- StudentTaskCompletionClassification
+
+TaskDue <--o StudentTaskOverdueClassification
+TaskCompletion <--o StudentTaskCompletionClassification
 
 @enduml
 

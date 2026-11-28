@@ -185,7 +185,7 @@ As a student, I want to view my tasks in deadline order and receive warnings whe
 As a student, I want to be able to have a suggested prioritization of today's tasks using the suggested daily workload, so that I can plan what to study based on the information.
 
 ### Acceptance Criteria
-
+1. Select the top three incomplete, non-overdue tasks using hours per day.
 2. The system can calculate remaining workload per task.
 3. The system can calculate the days available to work, excluding today and the due date.
 4. The system can calculate suggested daily workload per task in hours per day
